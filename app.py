@@ -16,13 +16,12 @@ def init_db():
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT UNIQUE,
-        password TEXT,
-        is_admin INTEGER DEFAULT 0,
-        created_at TEXT
+        password TEXT
     )
     """)
     db.commit()
     db.close()
+
 
 
 init_db()
@@ -33,11 +32,14 @@ def index():
         return redirect("/dashboard")
     return redirect("/login")
 
+from werkzeug.security import generate_password_hash
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
         username = request.form["username"]
         password = generate_password_hash(request.form["password"])
+
         try:
             db = get_db()
             db.execute(
@@ -47,8 +49,10 @@ def register():
             db.commit()
             return redirect("/login")
         except:
-            return "そのユーザー名は使われています"
+            return "そのユーザー名はすでに使われています"
+
     return render_template("register.html")
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -82,6 +86,7 @@ def logout():
 
 if __name__ == "__main__":
     app.run()
+
 
 
 
