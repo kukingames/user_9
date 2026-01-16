@@ -1,0 +1,12 @@
+<nav class="navbar navbar-light bg-white shadow-sm mb-4">
+  <div class="container">
+    <span class="navbar-brand mb-0 h5">StudyApp</span>
+
+    {% if session.username %}
+      <div class="d-flex align-items-center">
+        <span class="me-3">{{ session.username }} さん</span>
+        <a href="/logout" class="btn btn-outline-danger btn-sm">ログアウト</a>
+      </div>
+    {% endif %}
+  </div>
+</nav>
