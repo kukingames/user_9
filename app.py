@@ -24,6 +24,12 @@ def init_db():
 
 init_db()
 
+@app.route("/")
+def index():
+    if "user_id" in session:
+        return redirect("/dashboard")
+    return redirect("/login")
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -73,4 +79,5 @@ def logout():
 
 if __name__ == "__main__":
     app.run()
+
 
