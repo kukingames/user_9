@@ -16,11 +16,14 @@ def init_db():
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT UNIQUE,
-        password TEXT
+        password TEXT,
+        is_admin INTEGER DEFAULT 0,
+        created_at TEXT
     )
     """)
     db.commit()
     db.close()
+
 
 init_db()
 
@@ -79,5 +82,6 @@ def logout():
 
 if __name__ == "__main__":
     app.run()
+
 
 
